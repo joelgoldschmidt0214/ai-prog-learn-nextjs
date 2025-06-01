@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ja" className={`${notoSansJP.variable}`} data-theme="corporate">
+    <html lang="ja" className={`${notoSansJP.variable}`}>
       {/*
         ThemeProviderで囲むことで、クライアントサイドでのテーマ初期化の
         ちらつき (FOUC) を防ぎ、Hydration Error のリスクを低減できます。

@@ -1,8 +1,9 @@
 /* src/app/globals.css */
 @import 'tailwindcss';
 @plugin 'daisyui' {
-  themes: corporate --default, business --prefersdark;
+  themes: corporate --default, night --prefersdark;
 }
+@plugin '@tailwindcss/typography';
 
 @theme {
   --font-sans: var(--font-noto-sans-jp), ui-sans-serif, system-ui;

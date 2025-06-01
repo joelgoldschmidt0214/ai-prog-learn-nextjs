@@ -7,9 +7,11 @@ import AiResponseDisplay from '../components/AiResponseDisplay';
 import Footer from '../components/Footer';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
+const LIGHT_THEME = 'corporate'
+const DARK_THEME = 'night'
 
 export default function Home() {
-  const [currentTheme, setCurrentTheme] = useState('corporate'); // DaisyUIのデフォルトライトテーマ名
+  const [currentTheme, setCurrentTheme] = useState(LIGHT_THEME); // DaisyUIのデフォルトライトテーマ名
   const [initStatusMessage, setInitStatusMessage] = useState('バックエンドの初期化状態を確認中...');
   const [isBackendReady, setIsBackendReady] = useState(false);
 
@@ -28,13 +30,13 @@ export default function Home() {
 
   // テーマの初期化
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme') || 'corporate';
+    const storedTheme = localStorage.getItem('theme') || LIGHT_THEME;
     setCurrentTheme(storedTheme);
     // ThemeProviderがhtmlタグのdata-themeを更新するので、ここではsetCurrentThemeのみ
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = currentTheme === 'corporate' ? 'business' : 'corporate';
+    const newTheme = currentTheme === LIGHT_THEME ? DARK_THEME : LIGHT_THEME;
     console.log('Toggling theme from:', currentTheme, 'to:', newTheme); // ★ログ追加
     setCurrentTheme(newTheme);
     localStorage.setItem('theme', newTheme);

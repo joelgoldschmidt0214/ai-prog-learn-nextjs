@@ -2,6 +2,7 @@
 'use client';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { CheckCircleIcon, ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 export default function QuizSection({
   quiz,
@@ -10,6 +11,28 @@ export default function QuizSection({
   quizEvaluationResult
 }) {
   if (!quiz?.question) return null;
+
+  // 採点結果に基づいて alert のタイプとアイコンを決定
+  let alertType = '';
+  let AlertIcon = null; // アイコンコンポーネントを格納する変数
+
+  if (quizEvaluationResult) {
+    const resultText = quizEvaluationResult.toLowerCase();
+    if (resultText.includes("採点結果：正解")) {
+      alertType = "alert-success";
+      AlertIcon = <CheckCircleIcon className="stroke-current shrink-0 h-6 w-6" />;
+    } else if (resultText.includes("採点結果：惜しい")) {
+      alertType = "alert-warning";
+      AlertIcon = <ExclamationTriangleIcon className="stroke-current shrink-0 h-6 w-6" />;
+    } else if (resultText.includes("採点結果：不正解") || resultText.includes("採点結果：誤り")) {
+      alertType = "alert-error";
+      AlertIcon = <XCircleIcon className="stroke-current shrink-0 h-6 w-6" />;
+    } else {
+      // 上記以外の場合（例えばエラーメッセージなど）はデフォルトでwarning表示など
+      alertType = "alert-info"; // または "alert-warning"
+      AlertIcon = <ExclamationTriangleIcon className="stroke-current shrink-0 h-6 w-6" />;
+    }
+  }
 
   return (
     <div className="mt-6 border-t border-base-300 pt-4">
@@ -25,16 +48,12 @@ export default function QuizSection({
           {isEvaluatingQuiz ? '採点中...' : '答えを送信して採点'}
         </button>
       </form>
-      {quizEvaluationResult && (
-        <div role="alert" className={`alert mt-4 ${quizEvaluationResult.toLowerCase().includes("正解") || quizEvaluationResult.toLowerCase().includes("素晴らしい") ? "alert-success" : "alert-warning"}`}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-            {quizEvaluationResult.toLowerCase().includes("正解") || quizEvaluationResult.toLowerCase().includes("素晴らしい")
-              ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />}
-          </svg>
-          <div>
-            <h5 className="font-semibold mb-1">採点結果:</h5>
-            <article className="prose prose-xs max-w-none">
+      {quizEvaluationResult && alertType && AlertIcon && ( // alertTypeとAlertIconが設定されている場合のみ表示
+        <div role="alert" className={`alert mt-4 ${alertType}`}>
+          {AlertIcon} {/* 動的に選択されたアイコンを表示 */}
+          <div className={`w-full ${alertType}`}> {/* 背景色と文字色を確実に適用 */}
+            {/* <h5 className="font-semibold mb-1">採点結果:</h5> */}
+            <article className="prose prose-xs max-w-none text-gray-900">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {quizEvaluationResult}
               </ReactMarkdown>

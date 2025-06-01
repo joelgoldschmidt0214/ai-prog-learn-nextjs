@@ -29,7 +29,7 @@ export default function AiResponseDisplay({
   if (!geminiResponse) return null;
 
   return (
-    <div className="mt-8 p-4 border border-base-300 rounded-lg bg-base-200">
+    <div className="mt-8 p-4 border border-base-1 rounded-lg bg-base-300">
       <div className="flex justify-between items-center mb-3">
         <h3 className="text-xl font-semibold">AIからの回答:</h3>
         {geminiResponse.explanation && ( // explanation がある場合のみコピーボタンを表示
