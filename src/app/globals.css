@@ -1,29 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* src/app/globals.css */
+@import 'tailwindcss';
+@plugin 'daisyui' {
+  themes: corporate --default, night --prefersdark;
+}
+@plugin '@tailwindcss/typography';
 
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-} */
+@theme {
+  --font-sans: var(--font-noto-sans-jp), ui-sans-serif, system-ui;
+}
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
-} */
-
-/*ダークモード用にカラーを固定*/
-/* @media (prefers-color-scheme: dark) {
-  input[type="number"],
-  input[type="text"] {
-    color: #000 !important;
-  }
-} */
-
-/* body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-} */
+}

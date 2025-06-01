@@ -1,0 +1,87 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* highlight.js の基本スタイル (必須ではないが、構造を担保する場合) */
+/* @import 'highlight.js/styles/default.css'; */ /* ← これは削除またはコメントアウト */
+
+/* DaisyUIのテーマ変数を使ってhighlight.jsのスタイルを上書きする */
+/* ライトテーマ (例: corporate) */
+[data-theme="corporate"] .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: hsl(var(--n) / var(--tw-bg-opacity, 1)); /* DaisyUIのneutralカラー */
+  color: hsl(var(--nc) / var(--tw-text-opacity, 1)); /* DaisyUIのneutral-contentカラー */
+}
+/* コメント */
+[data-theme="corporate"] .hljs-comment,
+[data-theme="corporate"] .hljs-quote {
+  color: hsl(var(--s) / var(--tw-text-opacity, 1)); /* secondaryカラーなど */
+  font-style: italic;
+}
+/* キーワードなど (色はDaisyUIのテーマに合わせて調整) */
+[data-theme="corporate"] .hljs-keyword,
+[data-theme="corporate"] .hljs-selector-tag,
+[data-theme="corporate"] .hljs-subst {
+  color: hsl(var(--p) / var(--tw-text-opacity, 1)); /* primaryカラーなど */
+  font-weight: bold;
+}
+[data-theme="corporate"] .hljs-number,
+[data-theme="corporate"] .hljs-literal,
+[data-theme="corporate"] .hljs-variable,
+[data-theme="corporate"] .hljs-template-variable,
+[data-theme="corporate"] .hljs-tag .hljs-attr {
+  color: hsl(var(--a) / var(--tw-text-opacity, 1)); /* accentカラーなど */
+}
+/* 文字列など */
+[data-theme="corporate"] .hljs-string,
+[data-theme="corporate"] .hljs-doctag {
+  color: hsl(var(--sc) / var(--tw-text-opacity, 1)); /* secondary-contentなど */
+}
+/* ... 他のトークンタイプも同様にDaisyUIのテーマカラーに合わせて設定 ... */
+
+
+/* ダークテーマ (例: business) */
+[data-theme="business"] .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: hsl(var(--n) / var(--tw-bg-opacity, 1));
+  color: hsl(var(--nc) / var(--tw-text-opacity, 1));
+}
+[data-theme="business"] .hljs-comment,
+[data-theme="business"] .hljs-quote {
+  color: hsl(var(--s) / var(--tw-text-opacity, 1));
+  font-style: italic;
+}
+[data-theme="business"] .hljs-keyword,
+[data-theme="business"] .hljs-selector-tag,
+[data-theme="business"] .hljs-subst {
+  color: hsl(var(--p) / var(--tw-text-opacity, 1));
+  font-weight: bold;
+}
+[data-theme="business"] .hljs-number,
+[data-theme="business"] .hljs-literal,
+[data-theme="business"] .hljs-variable,
+[data-theme="business"] .hljs-template-variable,
+[data-theme="business"] .hljs-tag .hljs-attr {
+  color: hsl(var(--a) / var(--tw-text-opacity, 1));
+}
+[data-theme="business"] .hljs-string,
+[data-theme="business"] .hljs-doctag {
+  color: hsl(var(--sc) / var(--tw-text-opacity, 1));
+}
+/* ... 他のトークンタイプも同様に設定 ... */
+
+/* もし特定の highlight.js テーマをベースにしたい場合は、そのテーマをインポートし、
+   上記のように DaisyUI のテーマ変数で上書きしたい部分だけを記述します。
+   例:
+   @import 'highlight.js/styles/github.css';
+   [data-theme="corporate"] .hljs { background: hsl(var(--n)); color: hsl(var(--nc)); }
+   [data-theme="business"] .hljs { background: hsl(var(--n)); color: hsl(var(--nc)); }
+   など。
+   ただし、この方法は多くの !important が必要になる場合があります。
+   上記のように各トークンを直接指定する方がコントロールしやすいです。
+*/
