@@ -81,7 +81,7 @@ export default function AiResponseDisplay({
         <details className="collapse collapse-arrow border border-base-300 bg-base-200 mt-4 text-xs">
           <summary className="collapse-title font-medium">モデルからの生テキストを表示 (デバッグ用)</summary>
           <div className="collapse-content">
-            <pre className="mt-1 p-2 bg-neutral text-neutral-content rounded whitespace-pre-wrap break-all overflow-x-auto">
+            <pre className="mt-1 p-2 bg-neutral text-neutral-content rounded-sm whitespace-pre-wrap break-all overflow-x-auto">
               {geminiResponse.raw_gemini_text}
             </pre>
           </div>

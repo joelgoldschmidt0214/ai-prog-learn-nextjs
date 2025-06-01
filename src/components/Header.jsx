@@ -6,7 +6,7 @@ export default function Header({ currentTheme, toggleTheme, initStatusMessage, i
   return (
     <header className="mb-8">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold text-center flex-grow">
+        <h1 className="text-3xl font-bold text-center grow">
           Next.js & FastAPI プログラミング学習サポートアプリ
         </h1>
         <label className="swap swap-rotate btn btn-ghost btn-circle">

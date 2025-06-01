@@ -185,7 +185,7 @@ export default function Home() {
       <div className="m-4 p-4 bg-base-100 text-base-content">
         テーマテスト: Base
       </div>
-      <main className="flex-grow">
+      <main className="grow">
         <AiInteractionForm
           selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage}
           selectedGoal={selectedGoal} setSelectedGoal={setSelectedGoal}
