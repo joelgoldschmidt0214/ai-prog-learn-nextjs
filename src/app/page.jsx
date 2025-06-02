@@ -80,22 +80,26 @@ export default function Home() {
         throw new Error(errorMsg);
       }
       const data = await response.json();
-      if (data.is_initializing) {
+      // ★★★ 修正点 ★★★
+      // バックエンドのレスポンスキーに合わせて 'model_ready' を 'client_ready' に変更
+      // また、is_initializing が null や undefined の場合も考慮
+      if (data.is_initializing === true) { // 明示的に true かどうかをチェック
         setInitStatusMessage('バックエンドは現在初期化処理中です。5秒後に再確認します...');
         setIsBackendReady(false);
         setTimeout(checkBackendInitialization, 5000);
-      } else if (data.initialized && data.model_ready) {
+      } else if (data.initialized === true && data.client_ready === true) { // initialized と client_ready をチェック
         setInitStatusMessage('バックエンドのGeminiモデルは準備完了です！');
         setIsBackendReady(true);
       } else {
+        // is_initializing が false または null/undefined で、かつ initialized/client_ready が true でない場合
         setInitStatusMessage('バックエンドのGeminiモデルの初期化に失敗したか、まだ完了していません。再度確認します...');
         setIsBackendReady(false);
-        setTimeout(checkBackendInitialization, 5000); // 失敗時もリトライ
+        setTimeout(checkBackendInitialization, 5000);
       }
     } catch (error) {
       setInitStatusMessage(`初期化状態確認エラー: ${error.message} 5秒後に再試行します。`);
       setIsBackendReady(false);
-      setTimeout(checkBackendInitialization, 5000); // キャッチしたエラーでもリトライ
+      setTimeout(checkBackendInitialization, 5000);
     }
   }, [getDisplayErrorMessage]); // getDisplayErrorMessage を依存配列に追加
 
@@ -178,7 +182,7 @@ export default function Home() {
         isBackendReady={isBackendReady}
       />
       {/* デバッグ用 */}
-      <div className="m-4 p-4 bg-primary text-primary-content">
+      {/* <div className="m-4 p-4 bg-primary text-primary-content">
         テーマテスト: Primary
       </div>
       <div className="m-4 p-4 bg-secondary text-secondary-content">
@@ -186,7 +190,7 @@ export default function Home() {
       </div>
       <div className="m-4 p-4 bg-base-100 text-base-content">
         テーマテスト: Base
-      </div>
+      </div> */}
       <main className="grow">
         <AiInteractionForm
           selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage}
